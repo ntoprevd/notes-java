@@ -83,4 +83,4 @@
 
    
 
-![](E:\javaLearing\notes\images\14.png)
+![](.\notes\images\14.png)
