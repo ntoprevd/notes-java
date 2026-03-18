@@ -3,7 +3,7 @@
 1. 中间方法
 2. 终结方法
 
-![](E:\javaLearing\notes\images\13.png)
+![](.\notes/images/13.png)
 
 ## 2. 方法引用
 

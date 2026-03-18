@@ -65,13 +65,13 @@
 
 2. object构造方法，无参构造
 
-   ![](.\images\5.png)
+   ![](./images/5.png)
 
 ### 5. java Runtime类使用
 
 1. 用法
 
-   ![用法](.\images\4.png)
+   ![用法](./images/4.png)
 
 ### 6. 继承
 
@@ -83,4 +83,4 @@
 
    
 
-![](.\notes\images\14.png)
+![](.\notes/images/14.png)
