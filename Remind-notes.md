@@ -83,4 +83,4 @@
 
    
 
-![](.\notes/images/14.png)
+![](./images/14.png)

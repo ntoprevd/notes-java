@@ -123,11 +123,11 @@ public abstract void work();
 
 api文档，Pattern类可查看 <https://docs.oracle.com/javase/8/docs/api/>
 
-![](.\notes/images/6.png)
+![](./images/6.png)
 
-![](.\notes/images/7.png)
+![](./images/7.png)
 
-![](.\notes/images/8.png)
+![](./images/8.png)
 
 正则表达式作用一：校验字符串是否满足规则<br>		   作用二：在一段文本中查找满足要求的内容
 
@@ -158,11 +158,11 @@ Pattern类：表示正则表达式<br>Matcher类：文本匹配器
 
 ## 15. Lambda
 
-![](.\notes/images/9.png) 
+![](./images/9.png) 
 
-![](.\notes/images/10.png)
+![](./images/10.png)
 
-![](.\notes/images/12.png)
+![](./images/12.png)
 
 ## 16. 数据结构
 
