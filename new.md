@@ -120,7 +120,9 @@ public class FunctionDemo05{
 
 ![](./images/19.png)
 
-1. 分类：运行时异常 RuntimeException及其子类；编译时异常
+1. 分类：     	运行时异常 RuntimeException及其子类：由于参数错误
+
+   ​			编译时异常：提醒程序员检查本地信息
 
 2. 作用1：查询bug的关键参考信息
 
@@ -143,3 +145,12 @@ public class FunctionDemo05{
    ![](./images/20.png)
 
 3. 抛出异常
+
+![](./images/21.png)
+
+## 4. file
+
+![](./images/22.png)![](./images/23.png)![](./images/24.png)![](./images/25.png)![](./images/26.png)
+
+listfile()方法：![](./images/27.png)
+
