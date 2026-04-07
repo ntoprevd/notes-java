@@ -1,156 +1,124 @@
-## 1. Stream流
+## 1. 多线程
 
-![](./images/13.png)
+1. 并发：在同一时刻，有多个指令在**单个CPU上交替**执行
+2. 并行：在同一时刻，有多个指令在**多个CPU上同时**执行
 
-1. 中间方法
+### 1. 多线程的实现方式
 
-   ![](./images/16.png)
+1. 继承Thread类
 
-2. 终结方法
+   定义一个类继承Thread
 
-   ![](./images/17.png)
+   重写run方法
 
-## 2. 方法引用
+   创建子类对象，并启动线程
 
-把已经有的方法拿过来用，当作函数式接口中抽象方法的方法体
+2. 实现Runnable接口
 
-引用处必须是函数式接口<br>被引用的方法必须已经存在<br>被引用方法的形参和返回值需要跟抽象方法保持一致<br>被引用方法的功能要满足当前需求
+   定义一个类实现Runnable接口
 
-### 1. 引用静态方法
+   重写run方法
 
-### 2. 引用成员方法
+   创建自己类的对象
 
-1. 其他类
-2. 本类
-3. 父类
+   创建Thread类的对象，并开启线程
 
-### 3. 引用构造方法
+3. 利用Callable接口和Future接口实现，可以获取到多线程运行的结果
 
-### 4. 其他调用方式
+   创建一个myCallable类实现callable接口
 
-1. 使用类名引用成员方法
+   重写call（返回值，表示多线程运行的结果）
 
-   引用处必须是函数式接口<br>被引用的方法必须已经存在<br>被引用方法的形参，需要跟抽象方法的第二个形参到最后一个形参保持一致，返回值需要保持一致
+   创建mycallable的对象，表示多线程要执行的任务
 
-   被引用方法的功能需要满足当前的需求。如图：
+   创建futuretask的对象，管理多线程运行的结果
 
-   ![](./images/15.png)
+   创建Thread类的对象，并启动，表示线程
 
-2. 引用数组的构造方法
+### 2. 成员方法
 
-![引用方法总结](./images/18.png)
+### 3. 线程的生命周期
 
-实例：
+![](./images/40.png)
 
-```java
-// 使用完整的匿名内部类
-// 先通过map()将字符串变成Student对象，再通过toArray()将Student放入数组
-Student[] array = list.stream()
-                .map(new Function<String, Student>() {
-                    @Override
-                    public Student apply(String s) {
+### 4. 生产者和消费者（等待唤醒机制）
 
-                        String name = s.split("-")[0];
-                        int age = Integer.parseInt(s.split("-")[1]);
+![](./images/41.png)
 
-                        return new Student(name, age);
-                    }
-                })
-                .toArray(new IntFunction<Student[]>() {
-                    @Override
-                    public Student[] apply(int value) {
-                        return new Student[value];
-                    }
-                });
-```
+## 2. 网络编程
 
-```java
-// 方法引用
-// 引用Student类中的构造方法，将流中的数据变成Student对象
-// 创建一个Student类型的数组，并把流中的数据放进数组
-Student[] array1 = list.stream()
-    .map(Student::new)
-    .toArray(Student[]::new);
-```
+### 网络编程三要素
 
-```java
-// 被引用的Student类中的构造方法
-public Student(String s) {
+### 1. IP
 
-        this.name = s.split("-")[0];
-        this.age = Integer.parseInt(s.split("-")[1]);
+Internet Protocol 设备在网络中的地址，是唯一的标识
 
-    }
-```
+1. IPv4：Internet Protocol version4 互联网通信协议第四版。
 
-虽然我感觉还是不懂。。。
+   32位地址长度->点分十进制表示法。2019.11.26全部分配完毕
 
-**有疑问有疑问：第一种和第二种的区别在哪？有忌讳吗？**
+   127.0.0.1 localhost 本地回环地址
 
-**我靠等等，刚刚发现竟然还有 -> 类名：：成员方法**
+   `ipconfig`: 查看本机IP地址
 
-```java
-public class FunctionDemo05{
-    psvma{
-        ArrayList<Student> list = new ArrayList<>();
-        list.add(new Student("zhangsan", 23));
-        list.add(new Student("lisi", 24));
-        list.add(new Student("wangwu", 25));
-        
-        // 第一种：像这样静态方法引用。即类名::静态方法
-        String[] array1 = list.stream().map(FunctionDemo05::getName).toArray(String[]::new);
-        
-        // 第二种: 实例方法引用。即对象::成员方法
-        String[] array1 = list.stream().map(new FunctionDemo05()::getName).toArray(String[]::new);
-    }
-    
-    // 让方法成为静态的，满足条件
-    public static getname(Student s){
-        return s.getName();
-    }
-    
-    // 让方法不是静态
-    public static getname(Student s){
-        return s.getName();
-    }
-}
-```
+   `ping`: 检查网络是否连通
 
-## 3. 异常
+2. IPv6：128位地址长度->冒分十六进制
 
-![](./images/19.png)
+### 2. 端口号
 
-1. 分类：     	运行时异常 RuntimeException及其子类：由于参数错误
+应用程序在设备中唯一的标识。一个端口号只能被一个应用程序使用。
 
-   ​			编译时异常：提醒程序员检查本地信息
+两个字节表示的整数 0 ~ 65535
 
-2. 作用1：查询bug的关键参考信息
+0 ~ 1023之间的端口号用于一些知名的网络服务或应用
 
-   作用2：作为方法内部的一种特殊返回值，一边通知调用者底层的执行情况
+### 3. 协议
 
-### 1. 异常处理方式
+数据在网络传输中的规则，常见的协议有UDP、TCP、HTTP、HTTPS、FTP
 
-1. jvm虚拟机默认处理方案：异常的名称、原因及异常出现的位置等信息输出在了控制台，且程序停止执行
+1. **UDP协议：**
 
-2. 捕获异常：好处：程序继续往下执行，不会停止
+   **用户数据报协议 User Datagram Protocol**
 
-   ```java
-   try{
-       可能出现异常的代码;
-   }catch(异常类名 变量名){
-       异常的处理代码;
-   }
-   ```
+   **面向无连接通信协议**
 
-   ![](./images/20.png)
+   **速度快，有大小限制一次最多发送64k，数据不安全，易丢失数据**
 
-3. 抛出异常
+2. **TCP协议：**
 
-![](./images/21.png)
+   **传输控制协议 Transmission Control Protocol**
 
-## 4. file
+   **面向连接的通信协议**
 
-![](./images/22.png)![](./images/23.png)![](./images/24.png)![](./images/25.png)![](./images/26.png)
+   **速度慢，没有大小限制，数据安全**
 
-listfile()方法：![](./images/27.png)
+### UDP三种通信方式
 
+### 1. 单播
+
+### 2. 组播
+
+224.0.0.0 - 224.0.0.255
+
+### 3. 广播
+
+255.255.255.255
+
+### TCP通信
+
+![](./images/36.png)
+
+### 1. 三次握手
+
+![](./images/37.png)
+
+### 2. 四次挥手
+
+![](./images/38.png)
+
+## 3. 反射
+
+反射允许对成员变量、成员方法和构造方法的信息进行编程访问。
+
+![](./images/39.png)
